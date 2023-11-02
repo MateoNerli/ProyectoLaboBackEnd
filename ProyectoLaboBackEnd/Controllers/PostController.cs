@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ProyectoLaboBackEnd.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using ProyectoLaboBackEnd.Models.Post.Dto;
 using ProyectoLaboBackEnd.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -7,6 +8,7 @@ using ProyectoLaboBackEnd.Services;
 namespace ProyectoLaboBackEnd.Controllers
 {
     [Route("api/posts")]
+    [Authorize]
     [ApiController]
     public class PostController : ControllerBase
     {
@@ -19,16 +21,18 @@ namespace ProyectoLaboBackEnd.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<Post>>> Get()
+        public async Task<ActionResult<IEnumerable<PostsDto>>> Get()
         {
             return Ok(await _postService.GetAll());
         }
 
         [HttpGet("{id:int}")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Post>> Get(int id)
+        public async Task<ActionResult<PostDto>> Get(int id)
         {
             try
             {
@@ -40,53 +44,58 @@ namespace ProyectoLaboBackEnd.Controllers
             }
         }
 
-        //[HttpPost]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public async Task<ActionResult<Post>> Post([FromBody] CreatePostDto createPostDto)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    try
-        //    {
-        //        await _userService.GetById(createPostDto.UserId);
-        //    }
-        //    catch
-        //    {
-        //        ModelState.AddModelError("UserId", "User does not exist");
-        //        return BadRequest(ModelState);
-        //    }
-        //    var postCreated = await _postService.Create(createPostDto);
-        //    return Created("CreatePost", postCreated);
-        //}
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<PostDto>> Post([FromBody] CreatePostDto createPostDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                await _userService.GetById(createPostDto.UserId);
+            }
+            catch
+            {
+                ModelState.AddModelError("UserId", "User does not exist");
+                return BadRequest(ModelState);
+            }
+            var postCreated = await _postService.Create(createPostDto);
+            return Created("CreatePost", postCreated);
+        }
 
-        //[HttpPut("{id:int}")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public async Task<ActionResult<Post>> Put(int id, [FromBody] Post updatePostDto)
-        //{
-        //    try
-        //    {
-        //        var postUpdated = await _postService.UpdateById(id, updatePostDto);
-        //        return Ok(postUpdated);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<PostDto>> Put(int id, [FromBody] UpdatePostDto updatePostDto)
+        {
+            try
+            {
+                var postUpdated = await _postService.UpdateById(id, updatePostDto);
+                return Ok(postUpdated);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult> Delete(int id)
         {
             try
             {
                 await _postService.DeleteById(id);
-                // Se puede retornar un No content (204)
                 return Ok(new
                 {
                     message = $"Post with Id = {id} was deleted"

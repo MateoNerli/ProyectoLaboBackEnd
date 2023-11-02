@@ -1,4 +1,5 @@
 ﻿using ProyectoLaboBackEnd.Models;
+using ProyectoLaboBackEnd.Models.Post;
 using ProyectoLaboBackEnd.Services;
 
 namespace ProyectoLaboBackEnd.Repositories

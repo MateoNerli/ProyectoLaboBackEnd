@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Linq;
 using ProyectoLaboBackEnd.Models;
 using ProyectoLaboBackEnd.Services;
+using ProyectoLaboBackEnd.Models.User;
 
 namespace ProyectoLaboBackEnd.Repositories
 {

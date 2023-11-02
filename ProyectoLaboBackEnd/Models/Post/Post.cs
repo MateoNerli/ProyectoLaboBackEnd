@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using ProyectoLaboBackEnd.Models.User;
+using ProyectoLaboBackEnd.Models.Community;
 
-namespace ProyectoLaboBackEnd.Models
+namespace ProyectoLaboBackEnd.Models.Post
 {
-    public partial class Post
+    public class Post
     {
-        public Post()
-        {
-            Users = new HashSet<User>();
-            UsersNavigation = new HashSet<User>();
-        }
-
         public int PostId { get; set; }
         public int UserId { get; set; }
         public DateTime DateTime { get; set; }
@@ -22,9 +18,9 @@ namespace ProyectoLaboBackEnd.Models
         public DateTime? DeletedAt { get; set; }
         public DateTime? UpdateAt { get; set; }
 
-        public virtual Community Community { get; set; } = null!;
-        public virtual User User { get; set; } = null!;
-        public ICollection<User> Users { get; set; } 
-        public virtual ICollection<User> UsersNavigation { get; set; }
+        public virtual Community.Community Community { get; set; } = null!;
+        public virtual User.User User { get; set; } = null!;
+        public ICollection<User.User> Users { get; set; } = new List<User.User>();
+        public virtual ICollection<User.User> UsersNavigation { get; set; } = new List<User.User>();
     }
 }

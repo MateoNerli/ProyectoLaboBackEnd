@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using System.Net;
 using System.Web.Http;
-using ProyectoLaboBackEnd.Models;
 using ProyectoLaboBackEnd.Repositories;
+using ProyectoLaboBackEnd.Models.Post;
+using ProyectoLaboBackEnd.Models.User;
+using ProyectoLaboBackEnd.Models.Role;
 
 namespace ProyectoLaboBackEnd.Services
 {

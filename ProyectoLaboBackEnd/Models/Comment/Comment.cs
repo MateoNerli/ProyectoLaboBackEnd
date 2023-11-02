@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProyectoLaboBackEnd.Models
+namespace ProyectoLaboBackEnd.Models.Comment
 {
     public partial class Comment
     {
@@ -13,7 +13,7 @@ namespace ProyectoLaboBackEnd.Models
         public DateTime? DeletedAt { get; set; }
         public DateTime? UpdateAt { get; set; }
 
-        public virtual Post Post { get; set; } = null!;
-        public virtual User User { get; set; } = null!;
+        public virtual Post.Post Post { get; set; } = null!;
+        public virtual User.User User { get; set; } = null!;
     }
 }

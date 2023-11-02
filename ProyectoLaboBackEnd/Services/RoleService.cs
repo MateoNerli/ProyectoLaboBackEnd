@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Web.Http;
-using ProyectoLaboBackEnd.Models;
+using ProyectoLaboBackEnd.Models.Role;
 using ProyectoLaboBackEnd.Repositories;
 
 namespace ProyectoLaboBackEnd.Services
