@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ProyectoLaboBackEnd.Models;
+using ProyectoLaboBackEnd.Models.DTO;
 using ProyectoLaboBackEnd.Services;
+using ProyectoLaboBackEnd.Models.User;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -42,37 +43,49 @@ namespace ProyectoLaboBackEnd.Controllers
             }
         }
 
-        //[HttpPost]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //public async Task<ActionResult<User>> Post([FromBody] CreateUserDto createUserDto)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    var userCreated = await _userService.Create(createUserDto);
-        //    return Created("CreateUser", userCreated);
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<User>> Post([FromBody] CreateUserDto createUserDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var userToCreate = new User
+            {
+                Name = createUserDto.Name,
+                LastName = createUserDto.LastName,
+                UserName = createUserDto.UserName,
+                Password = createUserDto.Password,
+                Email = createUserDto.Email,
+                Pfp = createUserDto.Pfp,
+                BirthDate = createUserDto.BirthDate,
+                Phone = createUserDto.Phone
+            };
 
-        //}
+            var userCreated = await _userService.Create(userToCreate);
+            return Created("CreateUser", userCreated);
 
-        //[HttpPut("{id:int}")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //public async Task<ActionResult<User>> Put(int id, [FromBody] UpdateUserDto updateUserDto)
-        //{
-        //    try
-        //    {
-        //        var userUpdated = await _userService.UpdateById(id, updateUserDto);
-        //        return Ok(userUpdated);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        }
+
+        [HttpPut("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<User>> Put(int id, [FromBody] UpdateUserDto updateUserDto)
+        {
+            try
+            {
+                var userUpdated = await _userService.UpdateById(id, updateUserDto);
+                return Ok(userUpdated);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

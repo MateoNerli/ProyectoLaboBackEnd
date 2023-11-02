@@ -22,7 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectoLabo4
+namespace ProyectoLaboBackEnd
 {
     public class Startup
     {
@@ -41,7 +41,7 @@ namespace ProyectoLabo4
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProyectoLabo4", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProyectoLaboBackEnd", Version = "v1" });
                 c.AddSecurityDefinition("Token", new OpenApiSecurityScheme()
                 {
                     BearerFormat = "JWT",
@@ -56,7 +56,7 @@ namespace ProyectoLabo4
             
             //db
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContextPool<proyectolabo4Context>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+            services.AddDbContextPool<ProyectoLaboBackEndContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
             //servicios
             services.AddScoped<UserService>();
@@ -98,7 +98,7 @@ namespace ProyectoLabo4
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProyectoLabo4 v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProyectoLaboBackEnd v1"));
             }
 
             app.UseHttpsRedirection();

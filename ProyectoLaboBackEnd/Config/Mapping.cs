@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using ProyectoLaboBackEnd.Models;
+using ProyectoLaboBackEnd.Models.Post;
+using ProyectoLaboBackEnd.Models.User;
 
 namespace ProyectoLaboBackEnd.Config
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProyectoLaboBackEnd.Models
+namespace ProyectoLaboBackEnd.Models.Post
 {
     public partial class Post
     {
@@ -24,7 +24,7 @@ namespace ProyectoLaboBackEnd.Models
 
         public virtual Community Community { get; set; } = null!;
         public virtual User User { get; set; } = null!;
-        public ICollection<User> Users { get; set; } 
+        public ICollection<User> Users { get; set; }
         public virtual ICollection<User> UsersNavigation { get; set; }
     }
 }

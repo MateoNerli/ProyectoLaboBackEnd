@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProyectoLaboBackEnd.Models
+namespace ProyectoLaboBackEnd.Models.Role
 {
     public partial class Role
     {

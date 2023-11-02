@@ -1,4 +1,5 @@
 ﻿using ProyectoLaboBackEnd.Models;
+using ProyectoLaboBackEnd.Models.Role;
 using ProyectoLaboBackEnd.Services;
 
 namespace ProyectoLaboBackEnd.Repositories
@@ -9,9 +10,9 @@ namespace ProyectoLaboBackEnd.Repositories
     }
     public class RoleRepository : Repository<Role>, IRoleRepository
     {
-        private readonly proyectolabo4Context _db;
+        private readonly ProyectoLaboBackEndContext _db;
 
-        public RoleRepository(proyectolabo4Context db) : base(db)
+        public RoleRepository(ProyectoLaboBackEndContext db) : base(db)
         {
             _db = db;
         }
