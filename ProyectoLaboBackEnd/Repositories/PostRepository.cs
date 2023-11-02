@@ -1,4 +1,5 @@
 ﻿using ProyectoLaboBackEnd.Models;
+using ProyectoLaboBackEnd.Models.Post;
 using ProyectoLaboBackEnd.Services;
 
 namespace ProyectoLaboBackEnd.Repositories
@@ -10,9 +11,9 @@ namespace ProyectoLaboBackEnd.Repositories
 
     public class PostRepository : Repository<Post>, IPostRepository
     {
-        private readonly proyectolabo4Context _db;
+        private readonly ProyectoLaboBackEndContext _db;
 
-        public PostRepository(proyectolabo4Context db) : base(db)
+        public PostRepository(ProyectoLaboBackEndContext db) : base(db)
         {
             _db = db;
         }

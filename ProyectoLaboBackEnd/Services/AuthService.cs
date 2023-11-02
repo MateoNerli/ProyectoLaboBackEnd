@@ -2,7 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using ProyectoLaboBackEnd.Models;
+using ProyectoLaboBackEnd.Models.User;
 
 namespace ProyectoLaboBackEnd.Services
 {

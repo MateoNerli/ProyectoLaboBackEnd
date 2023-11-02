@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProyectoLaboBackEnd.Models
+namespace ProyectoLaboBackEnd.Models.User
 {
     public partial class User
     {
@@ -11,6 +11,8 @@ namespace ProyectoLaboBackEnd.Models
             Posts = new HashSet<Post>();
             Posts1 = new HashSet<Post>();
             Roles = new HashSet<Role>();
+
+            CreatedAt = DateTime.UtcNow;
         }
 
         public int UserId { get; set; }
@@ -19,9 +21,9 @@ namespace ProyectoLaboBackEnd.Models
         public string UserName { get; set; } = null!;
         public string Password { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public DateOnly RegistrationDate { get; set; }
+        public DateTime RegistrationDate { get; set; }
         public string Pfp { get; set; } = null!;
-        public DateOnly BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         public string? Phone { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? DeletedAt { get; set; }

@@ -4,9 +4,9 @@
 
 //namespace ProyectoLaboBackEnd.Services
 //{
-//    public class proyectolabo4Context : DbContext
+//    public class ProyectoLaboBackEndContext : DbContext
 //    {
-//        public proyectolabo4Context(DbContextOptions<proyectolabo4Context> options) : base(options) { }
+//        public ProyectoLaboBackEndContext(DbContextOptions<ProyectoLaboBackEndContext> options) : base(options) { }
 //        public DbSet<User> Users { get; set; }
 //        public DbSet<Post> Posts { get; set; }
 //        public DbSet<Role> Roles { get; set; }
