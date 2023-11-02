@@ -17,9 +17,9 @@ namespace ProyectoLaboBackEnd.Repositories
     }
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly proyectolabo4Context _db;
+        private readonly ProyectoLaboBackEndContext _db;
         internal DbSet<T> dbSet;
-        public Repository(proyectolabo4Context db)
+        public Repository(ProyectoLaboBackEndContext db)
         {
             _db = db;
             dbSet = _db.Set<T>();

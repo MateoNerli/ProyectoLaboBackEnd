@@ -15,9 +15,9 @@ namespace ProyectoLaboBackEnd.Repositories
 
     public class UserRepository : Repository<User>, IUserRepository
     {
-        private readonly proyectolabo4Context _db;
+        private readonly ProyectoLaboBackEndContext _db;
 
-        public UserRepository(proyectolabo4Context db) : base(db)
+        public UserRepository(ProyectoLaboBackEndContext db) : base(db)
         {
             _db = db;
         }

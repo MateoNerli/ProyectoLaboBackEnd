@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ProyectoLaboBackEnd.Models
 {
-    public partial class proyectolabo4Context : DbContext
+    public partial class ProyectoLaboBackEndContext : DbContext
     {
        
-        public proyectolabo4Context(DbContextOptions<proyectolabo4Context> options) : base(options)
+        public ProyectoLaboBackEndContext(DbContextOptions<ProyectoLaboBackEndContext> options) : base(options)
         {
         }
 

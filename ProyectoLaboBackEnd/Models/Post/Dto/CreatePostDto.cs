@@ -12,5 +12,7 @@ namespace ProyectoLaboBackEnd.Models.Post.Dto
         public string? Media { get; set; }
         public int CommunityId { get; set; }
 
+        [Required]
+        public int UserId { get; set; }
     }
 }

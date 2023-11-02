@@ -10,6 +10,7 @@ namespace ProyectoLaboBackEnd.Services
 {
     public class UserService
     {
+
         private readonly IUserRepository _userRepo;
         private readonly IMapper _mapper;
         private readonly PostService _postService;
@@ -23,13 +24,7 @@ namespace ProyectoLaboBackEnd.Services
             _encoderService = encoderService;
         }
 
-        public async Task<List<User>> GetAll()
-        {
-            var lista = await _userRepo.GetAll();
-            return _mapper.Map<List<User>>(lista);
-        }
-
-        public async Task<User> GetById(int id)
+        private async Task<User> GetOneByIdOrException(int id)
         {
             var user = await _userRepo.GetOne(u => u.UserId == id);
 
@@ -38,9 +33,22 @@ namespace ProyectoLaboBackEnd.Services
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
+            return user;
+        }
+
+        public async Task<List<UsersDto>> GetAll()
+        {
+            var lista = await _userRepo.GetAll();
+            return _mapper.Map<List<UsersDto>>(lista);
+        }
+
+        public async Task<UserDto> GetById(int id)
+        {
+            var user = await GetOneByIdOrException(id);
+
             var posts = await _postService.GetAllByUserId(id);
 
-            var mapped = _mapper.Map<User>(user);
+            var mapped = _mapper.Map<UserDto>(user);
 
             mapped.Posts = posts;
 
@@ -62,39 +70,29 @@ namespace ProyectoLaboBackEnd.Services
             return user;
         }
 
-        public async Task<User> Create(User newUser)
+        public async Task<UserDto> Create(CreateUserDto createUserDto)
         {
-            var user = _mapper.Map<User>(newUser);
+            var user = _mapper.Map<User>(createUserDto);
 
             user.Password = _encoderService.Encode(user.Password);
 
             await _userRepo.Add(user);
 
-            return _mapper.Map<User>(user);
+            return _mapper.Map<UserDto>(user);
         }
 
-        public async Task<User> UpdateById(int id, Post updateUserDto)
+        public async Task<UserDto> UpdateById(int id, UpdateUserDto updateUserDto)
         {
-            var user = await _userRepo.GetOne(u => u.UserId == id);
-
-            if (user == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
+            var user = await GetOneByIdOrException(id);
 
             var updated = _mapper.Map(updateUserDto, user);
 
-            return _mapper.Map<User>(await _userRepo.Update(updated));
+            return _mapper.Map<UserDto>(await _userRepo.Update(updated));
         }
 
         public async Task DeleteById(int id)
         {
-            var user = await _userRepo.GetOne(u => u.UserId == id);
-
-            if (user == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
+            var user = await GetOneByIdOrException(id);
 
             await _userRepo.Delete(user);
         }
@@ -102,12 +100,7 @@ namespace ProyectoLaboBackEnd.Services
         //roles
         public async Task<User> UpdateUserRolesById(int id, List<Role> roles)
         {
-            var user = await _userRepo.GetOne(u => u.UserId == id);
-
-            if (user == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
+            var user = await GetOneByIdOrException(id);
 
             user.Roles = roles;
 
@@ -116,12 +109,7 @@ namespace ProyectoLaboBackEnd.Services
 
         public async Task<List<Role>> GetRolesOfUserById(int id)
         {
-            var user = await _userRepo.GetOne(u => u.UserId == id);
-
-            if (user == null)
-            {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
+            var user = await GetOneByIdOrException(id);
 
             return user.Roles.ToList();
         }

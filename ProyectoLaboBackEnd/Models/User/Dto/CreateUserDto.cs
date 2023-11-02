@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace ProyectoLaboBackEnd.Models.User.Dto
 {
     public class CreateUserDto
