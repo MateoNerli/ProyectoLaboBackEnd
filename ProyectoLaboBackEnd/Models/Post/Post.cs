@@ -7,6 +7,12 @@ namespace ProyectoLaboBackEnd.Models.Post
 {
     public class Post
     {
+        public Post()
+        {
+            Users = new HashSet<User.User>();
+            UsersNavigation = new HashSet<User.User>();
+        }
+
         public int PostId { get; set; }
         public int UserId { get; set; }
         public DateTime DateTime { get; set; }
@@ -20,7 +26,8 @@ namespace ProyectoLaboBackEnd.Models.Post
 
         public virtual Community.Community Community { get; set; } = null!;
         public virtual User.User User { get; set; } = null!;
-        public ICollection<User.User> Users { get; set; } = new List<User.User>();
-        public virtual ICollection<User.User> UsersNavigation { get; set; } = new List<User.User>();
+
+        public virtual ICollection<User.User> Users { get; set; }
+        public virtual ICollection<User.User> UsersNavigation { get; set; }
     }
 }

@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ProyectoLaboBackEnd.Models
 {
-    public partial class ProyectoLaboBackEndContext : DbContext
+    public partial class proyectolabo4Context : DbContext
     {
-       
-        public ProyectoLaboBackEndContext(DbContextOptions<ProyectoLaboBackEndContext> options) : base(options)
+
+        public proyectolabo4Context(DbContextOptions<proyectolabo4Context> options) : base(options)
         {
         }
 
@@ -17,6 +17,7 @@ namespace ProyectoLaboBackEnd.Models
         public virtual DbSet<Post.Post> Posts { get; set; } = null!;
         public virtual DbSet<Role.Role> Roles { get; set; } = null!;
         public virtual DbSet<User.User> Users { get; set; } = null!;
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -159,7 +160,7 @@ namespace ProyectoLaboBackEnd.Models
                             j.HasIndex(new[] { "PostId" }, "PostId");
                         });
 
-                entity.HasMany(d => d.Posts)
+                entity.HasMany(d => d.Posts1)
                     .WithMany(p => p.UsersNavigation)
                     .UsingEntity<Dictionary<string, object>>(
                         "Saved",
@@ -177,7 +178,7 @@ namespace ProyectoLaboBackEnd.Models
                 entity.HasMany(d => d.Roles)
                     .WithMany(p => p.Users)
                     .UsingEntity<Dictionary<string, object>>(
-                        " ",
+                        "Userrole",
                         l => l.HasOne<Role.Role>().WithMany().HasForeignKey("RoleId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("userroles_ibfk_2"),
                         r => r.HasOne<User.User>().WithMany().HasForeignKey("UserId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("userroles_ibfk_1"),
                         j =>

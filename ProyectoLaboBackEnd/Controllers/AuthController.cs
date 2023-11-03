@@ -84,7 +84,7 @@ namespace ProyectoLaboBackEnd.Controllers
 
                 var defaultRole = await _roleService.GetRoleByName("User");
 
-                await _userService.UpdateUserRolesById(userCreated.Id, new List<Role> { defaultRole });
+                await _userService.UpdateUserRolesById(userCreated.UserId, new List<Role> { defaultRole });
 
                 return Created("RegisterUser", userCreated);
             }

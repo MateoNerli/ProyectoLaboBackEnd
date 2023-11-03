@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
+using ProyectoLaboBackEnd.Models.Role;
+using ProyectoLaboBackEnd.Models.User.Dto;
+using ProyectoLaboBackEnd.Models.User;
+using ProyectoLaboBackEnd.Repositories;
 using System.Net;
 using System.Web.Http;
-using ProyectoLaboBackEnd.Repositories;
-using ProyectoLaboBackEnd.Models.Post;
-using ProyectoLaboBackEnd.Models.User;
-using ProyectoLaboBackEnd.Models.Role;
+using ProyectoLaboBackEnd.Models.Post.Dto;
 
 namespace ProyectoLaboBackEnd.Services
 {
     public class UserService
     {
-
         private readonly IUserRepository _userRepo;
         private readonly IMapper _mapper;
         private readonly PostService _postService;
@@ -50,7 +50,13 @@ namespace ProyectoLaboBackEnd.Services
 
             var mapped = _mapper.Map<UserDto>(user);
 
-            mapped.Posts = posts;
+            // Mapear los objetos Post a PostsDto utilizando LINQ
+            mapped.Posts = posts.Select(post => new PostsDto
+            {
+                PostId = post.PostId,
+                Title = post.Title,
+                MainContent = post.MainContent,
+            }).ToList();
 
             return mapped;
         }

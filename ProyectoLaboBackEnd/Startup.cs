@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ProyectoLaboBackEnd
@@ -56,7 +57,7 @@ namespace ProyectoLaboBackEnd
             
             //db
             string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContextPool<ProyectoLaboBackEndContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
+            services.AddDbContextPool<proyectolabo4Context>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
             //servicios
             services.AddScoped<UserService>();
@@ -65,6 +66,12 @@ namespace ProyectoLaboBackEnd
             services.AddScoped<AuthService>();
             services.AddScoped<RoleService>();
 
+
+            //Ciclo infinito
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+            });
 
             // automapper
             services.AddAutoMapper(typeof(Mapping));
@@ -100,6 +107,14 @@ namespace ProyectoLaboBackEnd
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProyectoLaboBackEnd v1"));
             }
+
+            app.UseCors(options =>
+            {
+                options.AllowAnyOrigin();
+                options.AllowAnyMethod();
+                options.AllowAnyHeader();
+            });
+
 
             app.UseHttpsRedirection();
 

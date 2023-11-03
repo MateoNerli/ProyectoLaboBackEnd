@@ -5,8 +5,16 @@ using ProyectoLaboBackEnd.Models.Post;
 
 namespace ProyectoLaboBackEnd.Models.User
 {
+
     public partial class User
     {
+        public User()
+        {
+            PostsNavigation = new HashSet<Post.Post>();
+            Posts = new HashSet<Post.Post>();
+            Posts1 = new HashSet<Post.Post>();
+            Roles = new HashSet<Role.Role>();
+        }
 
         public int UserId { get; set; }
         public string Name { get; set; } = null!;
@@ -22,11 +30,10 @@ namespace ProyectoLaboBackEnd.Models.User
         public DateTime? DeletedAt { get; set; }
         public DateTime? UpdateAt { get; set; }
 
-  
-        public virtual ICollection<Post.Post> PostsNavigation { get; set; } = new List<Post.Post>();
+        public virtual ICollection<Post.Post> PostsNavigation { get; set; }
 
-        public virtual ICollection<Post.Post> Posts { get; set; } = new List<Post.Post>();
-
-        public virtual ICollection<Role.Role> Roles { get; set; } = new List<Role.Role>();
+        public virtual ICollection<Post.Post> Posts { get; set; }
+        public virtual ICollection<Post.Post> Posts1 { get; set; }
+        public virtual ICollection<Role.Role> Roles { get; set; }
     }
 }

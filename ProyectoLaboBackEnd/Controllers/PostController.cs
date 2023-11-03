@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoLaboBackEnd.Models.Post;
+using ProyectoLaboBackEnd.Models.Post.Dto;
 using ProyectoLaboBackEnd.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -64,8 +65,16 @@ namespace ProyectoLaboBackEnd.Controllers
                 ModelState.AddModelError("UserId", "User does not exist");
                 return BadRequest(ModelState);
             }
-            var postCreated = await _postService.Create(createPostDto);
+
+            var postToCreate = MapCreatePostDtoToPost(createPostDto); 
+            var postCreated = await _postService.Create(postToCreate);
+
             return Created("CreatePost", postCreated);
+        }
+
+        private Post MapCreatePostDtoToPost(CreatePostDto createPostDto)
+        {
+            throw new NotImplementedException();
         }
 
         [HttpPut("{id:int}")]
@@ -73,7 +82,7 @@ namespace ProyectoLaboBackEnd.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<PostDto>> Put(int id, [FromBody] UpdatePostDto updatePostDto)
+        public async Task<ActionResult<PostDto>> Put(int id, [FromBody] Post updatePostDto)
         {
             try
             {
@@ -85,6 +94,8 @@ namespace ProyectoLaboBackEnd.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

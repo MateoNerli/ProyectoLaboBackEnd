@@ -7,12 +7,10 @@ namespace ProyectoLaboBackEnd.Models.Post.Dto
     {
         public int UserId { get; set; }
         public DateTime DateTime { get; set; }
-        public string Title { get; set; }
-        public string MainContent { get; set; }
+        public string Title { get; set; } = null!;
+        public string MainContent { get; set; } = null!;
         public string? Media { get; set; }
         public int CommunityId { get; set; }
 
-        [Required]
-        public int UserId { get; set; }
     }
 }
