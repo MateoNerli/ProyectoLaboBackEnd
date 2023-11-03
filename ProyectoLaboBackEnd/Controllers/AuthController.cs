@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoLaboBackEnd.Enums;
 using ProyectoLaboBackEnd.Models.Auth;
 using ProyectoLaboBackEnd.Models.Auth.Dto;
 using ProyectoLaboBackEnd.Models.Role;
@@ -8,12 +10,16 @@ using ProyectoLaboBackEnd.Models.User;
 using ProyectoLaboBackEnd.Models.User.Dto;
 using ProyectoLaboBackEnd.Services;
 
+    //maneja la autenticación y la autorización de usuarios
+
 namespace ProyectoLaboBackEnd.Controllers
 {
     [Route("api/auth")]
+    [Authorize]    //esto significa que el usuario debe iniciar sesión antes de poder acceder a estas acciones
     [ApiController]
     public class AuthController : ControllerBase
     {
+        //Inyeccion de dependencias
         private readonly UserService _userService;
         private readonly IEncoderService _encoderService;
         private readonly AuthService _authService;
@@ -27,7 +33,8 @@ namespace ProyectoLaboBackEnd.Controllers
             _roleService = roleService;
         }
 
-        [HttpPost("login")]
+        [HttpPost("login")]    //se verifican las credenciales, y  si son validas se genera token 
+        [AllowAnonymous]    //Permite el acceso a esta acción sin autenticación
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<LoginResponseDto>> Login([FromBody] Login login)
@@ -51,9 +58,19 @@ namespace ProyectoLaboBackEnd.Controllers
                     ModelState.AddModelError("Error", "Credentials are incorrect");
                     return BadRequest(ModelState);
                 }
+
+                var userResponse = new UserLoginResponseDto
+                {
+                    UserID = user.UserId,
+                    Name = user.Name,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Roles = user.Roles.Select(p => p.Name).ToList()
+                };
+
                 string token = _authService.GenerateJwtToken(user);
 
-                return Ok(new LoginResponseDto { Token = token });
+                return Ok(new LoginResponseDto { Token = token, User = userResponse });
             }
             catch (Exception ex)
             {
@@ -61,7 +78,7 @@ namespace ProyectoLaboBackEnd.Controllers
             }
         }
 
-        [HttpPost("register")]
+        [HttpPost("register")]    //Registamos un usuario se verifica que no exista
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<UserDto>> Register([FromBody] CreateUserDto register)
@@ -93,10 +110,13 @@ namespace ProyectoLaboBackEnd.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-
-        [HttpPut("roles/user/{id}")]
+         
+        [HttpPut("roles/user/{id}")]    //  para cambiar los roles de un usuario
+        [Authorize(Roles = ROLES.ADMIN)]    //requiere que el usuario esté autenticado y tenga el rol "ADMIN"
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<User>> Put(int id, [FromBody] UpdateUserRolesDto updateUserRolesDto)
         {
             if (!ModelState.IsValid)

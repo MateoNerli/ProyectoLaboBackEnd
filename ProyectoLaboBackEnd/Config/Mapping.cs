@@ -24,6 +24,8 @@ namespace ProyectoLaboBackEnd.Config
             CreateMap<CreatePostDto, Post>().ReverseMap();
             // no mapear los null en el update
             CreateMap<UpdatePostDto, Post>().ForAllMembers(opts => opts.Condition((_, _, srcMember) => srcMember != null));
+
+            //esto sirve para convertir datos de entrada y salida entre objetos de dominio y objetos de transferencia de datos.
         }
     }
 }

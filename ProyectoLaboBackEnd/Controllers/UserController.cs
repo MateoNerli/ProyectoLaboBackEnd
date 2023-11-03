@@ -6,7 +6,7 @@ using ProyectoLaboBackEnd.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace UsersApi.Controllers
+namespace ProyectoLaboBackEnd.Controllers
 {
     [Route("api/users")]
     [Authorize]
@@ -90,7 +90,6 @@ namespace UsersApi.Controllers
             try
             {
                 await _userService.DeleteById(id);
-                // Se puede retornar un No content (204)
                 return Ok(new
                 {
                     message = $"User with Id = {id} was deleted"

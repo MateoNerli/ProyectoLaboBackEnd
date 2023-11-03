@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProyectoLaboBackEnd.Enums;
 using ProyectoLaboBackEnd.Models.Post;
 using ProyectoLaboBackEnd.Models.Post.Dto;
 using ProyectoLaboBackEnd.Services;
@@ -78,6 +79,7 @@ namespace ProyectoLaboBackEnd.Controllers
         }
 
         [HttpPut("{id:int}")]
+        [Authorize(Roles = $"{ROLES.ADMIN}, {ROLES.MOD}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -98,6 +100,7 @@ namespace ProyectoLaboBackEnd.Controllers
 
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = ROLES.ADMIN)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
