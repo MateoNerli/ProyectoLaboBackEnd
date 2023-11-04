@@ -15,7 +15,7 @@ using ProyectoLaboBackEnd.Services;
 namespace ProyectoLaboBackEnd.Controllers
 {
     [Route("api/auth")]
-    [Authorize]    //esto significa que el usuario debe iniciar sesión antes de poder acceder a estas acciones
+   /* [Authorize]  */  //esto significa que el usuario debe iniciar sesión antes de poder acceder a estas acciones
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -112,7 +112,7 @@ namespace ProyectoLaboBackEnd.Controllers
         }
          
         [HttpPut("roles/user/{id}")]    //  para cambiar los roles de un usuario
-        [Authorize(Roles = ROLES.ADMIN)]    //requiere que el usuario esté autenticado y tenga el rol "ADMIN"
+        //[Authorize(Roles = ROLES.ADMIN)]    //requiere que el usuario esté autenticado y tenga el rol "ADMIN"
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

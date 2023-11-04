@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using ProyectoLaboBackEnd.Services;
 using ProyectoLaboBackEnd.Models;
 
 namespace ProyectoLaboBackEnd.Repositories

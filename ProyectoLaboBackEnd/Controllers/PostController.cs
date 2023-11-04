@@ -66,25 +66,17 @@ namespace ProyectoLaboBackEnd.Controllers
                 ModelState.AddModelError("UserId", "User does not exist");
                 return BadRequest(ModelState);
             }
-
-            var postToCreate = MapCreatePostDtoToPost(createPostDto); 
-            var postCreated = await _postService.Create(postToCreate);
-
+            var postCreated = await _postService.Create(createPostDto);
             return Created("CreatePost", postCreated);
         }
 
-        private Post MapCreatePostDtoToPost(CreatePostDto createPostDto)
-        {
-            throw new NotImplementedException();
-        }
-
         [HttpPut("{id:int}")]
-        [Authorize(Roles = $"{ROLES.ADMIN}, {ROLES.MOD}")]
+        //[Authorize(Roles = $"{ROLES.ADMIN}, {ROLES.MOD}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<PostDto>> Put(int id, [FromBody] Post updatePostDto)
+        public async Task<ActionResult<PostDto>> Put(int id, [FromBody] UpdatePostDto updatePostDto)
         {
             try
             {
@@ -97,8 +89,6 @@ namespace ProyectoLaboBackEnd.Controllers
             }
         }
 
-
-
         [HttpDelete("{id}")]
         [Authorize(Roles = ROLES.ADMIN)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -110,6 +100,7 @@ namespace ProyectoLaboBackEnd.Controllers
             try
             {
                 await _postService.DeleteById(id);
+                // Se puede retornar un No content (204)
                 return Ok(new
                 {
                     message = $"Post with Id = {id} was deleted"

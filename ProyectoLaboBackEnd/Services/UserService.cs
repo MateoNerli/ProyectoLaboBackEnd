@@ -50,16 +50,11 @@ namespace ProyectoLaboBackEnd.Services
 
             var mapped = _mapper.Map<UserDto>(user);
 
-            // Mapear los objetos Post a PostsDto utilizando LINQ
-            mapped.Posts = posts.Select(post => new PostsDto
-            {
-                PostId = post.PostId,
-                Title = post.Title,
-                MainContent = post.MainContent,
-            }).ToList();
+            mapped.Posts = posts;
 
             return mapped;
         }
+
 
         public async Task<User> GetByUsernameOrEmail(string? username, string? email)
         {

@@ -1,15 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using System.Linq;
 using ProyectoLaboBackEnd.Models;
-using ProyectoLaboBackEnd.Services;
 using ProyectoLaboBackEnd.Models.User;
 
 namespace ProyectoLaboBackEnd.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task Add(User user);
         Task<User> Update(User entity);
     }
 

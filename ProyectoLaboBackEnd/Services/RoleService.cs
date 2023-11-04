@@ -25,7 +25,7 @@ namespace ProyectoLaboBackEnd.Services
             {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
-            var roles = await _roleRepo.GetAll(r => roleIds.Contains(r.RoleId));
+            var roles = await _roleRepo.GetAll(r => roleIds.Contains(r.RoleID));
             return roles.ToList();
         }
     }

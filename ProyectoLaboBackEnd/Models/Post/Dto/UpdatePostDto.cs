@@ -5,8 +5,10 @@ namespace ProyectoLaboBackEnd.Models.Post.Dto
 {
     public class UpdatePostDto
     {
-        public string Title { get; set; }
-        public string MainContent { get; set; }
+        [MaxLength(50)]
+        public string Title { get; set; } = null!;
+        [MaxLength(300)]
+        public string MainContent { get; set; } = null!;
         public string? Media { get; set; }
     }
 }

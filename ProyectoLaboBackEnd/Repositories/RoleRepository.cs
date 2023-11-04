@@ -1,6 +1,5 @@
 ﻿using ProyectoLaboBackEnd.Models;
 using ProyectoLaboBackEnd.Models.Role;
-using ProyectoLaboBackEnd.Services;
 
 namespace ProyectoLaboBackEnd.Repositories
 {
