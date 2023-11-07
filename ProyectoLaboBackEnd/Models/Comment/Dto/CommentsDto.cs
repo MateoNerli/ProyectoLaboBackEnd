@@ -3,6 +3,7 @@ namespace ProyectoLaboBackEnd.Models.Comment.Dto
 {
     public class CommentsDto
     {
+        public int CommentId { get; set; }
         public int PostId { get; set; }
         public string Title { get; set; } = null!;
         public string MainContent { get; set; } = null!;

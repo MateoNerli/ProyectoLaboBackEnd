@@ -5,7 +5,7 @@ namespace ProyectoLaboBackEnd.Models.Comment.Dto
 {
     public class UpdateCommentsDto
     {
-        public string MainContent { get; set; }
+        public string? MainContent { get; set; }
         public string? Media { get; set; }
     }
 }

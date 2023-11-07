@@ -113,6 +113,9 @@ namespace ProyectoLaboBackEnd.Models
                     .HasColumnName("name");
             });
 
+            modelBuilder.Entity<Comment.Comment>()
+        .HasKey(c => c.CommentId);
+
             modelBuilder.Entity<User.User>(entity =>
             {
                 entity.ToTable("users");
