@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProyectoLaboBackEnd.Models.Comment.Dto
 {
-    public class CreateComunityDto
+    public class CreateCommentsDto
     {
         public int PostId { get; set; }
         public int UserId { get; set; }

@@ -1,9 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace ProyectoLaboBackEnd.Models.Comment.Dto
 {
-    public class CommunitysDto
+    public class CommentsDto
     {
         public int PostId { get; set; }
         public string Title { get; set; } = null!;
@@ -12,6 +10,6 @@ namespace ProyectoLaboBackEnd.Models.Comment.Dto
         public int CommunityId { get; set; } 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        public List<CommunityDto> Comments { get; set; } = new List<CommunityDto>();
+        public List<CommentsDto> Comments { get; set; } = new List<CommentsDto>();
     }
 }

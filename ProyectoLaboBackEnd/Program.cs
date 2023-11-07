@@ -42,6 +42,7 @@ builder.Services.AddScoped<PostService>();
 builder.Services.AddScoped<IEncoderService, EncoderService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<RoleService>();
+builder.Services.AddScoped<CommentService>();
 // db
 builder.Services.AddDbContext<proyectolabo4Context>(options =>
 {
@@ -63,7 +64,7 @@ builder.Services.AddAutoMapper(typeof(Mapping));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 // secret key
 var secretKey = builder.Configuration.GetSection("jwtSettings").GetSection("secretKey").ToString();
 

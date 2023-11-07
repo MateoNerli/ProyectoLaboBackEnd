@@ -26,7 +26,6 @@ namespace ProyectoLaboBackEnd.Services
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
-
             return post;
         }
 

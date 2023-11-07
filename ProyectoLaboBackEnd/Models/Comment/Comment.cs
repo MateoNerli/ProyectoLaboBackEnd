@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProyectoLaboBackEnd.Models.Comment
 {
     public partial class Comment
     {
+        
         public int PostId { get; set; }
         public int UserId { get; set; }
         public string MainContent { get; set; } = null!;
