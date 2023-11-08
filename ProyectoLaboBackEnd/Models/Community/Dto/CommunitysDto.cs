@@ -8,6 +8,6 @@ namespace ProyectoLaboBackEnd.Models.Community.Dto
         public string Name { get; set; } = null!;
         public bool State { get; set; }
 
-        public List<CommunityDto> Communities { get; set; } = new List<CommunityDto>();
+        public List<CommunitysDto> Communities { get; set; } = new List<CommunitysDto>();
     }
 }

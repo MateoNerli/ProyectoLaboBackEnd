@@ -43,6 +43,7 @@ builder.Services.AddScoped<IEncoderService, EncoderService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<RoleService>();
 builder.Services.AddScoped<CommentService>();
+builder.Services.AddScoped<CommunityService>();
 // db
 builder.Services.AddDbContext<proyectolabo4Context>(options =>
 {
@@ -65,6 +66,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ICommunityRepository, CommunityRepository>();
 // secret key
 var secretKey = builder.Configuration.GetSection("jwtSettings").GetSection("secretKey").ToString();
 
