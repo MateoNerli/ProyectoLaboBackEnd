@@ -69,7 +69,12 @@ namespace ProyectoLaboBackEnd.Services
 
         public async Task DeleteById(int id)
         {
-            var post = await GetOneByIdOrException(id);
+            var post = await _postRepo.GetOne(u => u.PostId == id);
+
+            if (post == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
 
             await _postRepo.Delete(post);
         }
