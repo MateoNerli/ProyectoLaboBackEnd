@@ -1,13 +1,8 @@
 ﻿using AutoMapper;
-using ProyectoLaboBackEnd.Models.Comment;
-using ProyectoLaboBackEnd.Models.Comment.Dto;
 using ProyectoLaboBackEnd.Models.Community;
 using ProyectoLaboBackEnd.Models.Community.Dto;
 using ProyectoLaboBackEnd.Repositories;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 public class CommunityService

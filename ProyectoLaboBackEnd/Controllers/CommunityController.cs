@@ -14,12 +14,10 @@ namespace ProyectoLaboBackEnd.Controllers
     public class CommunityController : ControllerBase
     {
         private readonly CommunityService _communityService;
-        private readonly UserService _userService;
 
         public CommunityController(CommunityService communityService, UserService userService)
         {
             _communityService = communityService;
-            _userService = userService;
         }
 
         [HttpGet]
