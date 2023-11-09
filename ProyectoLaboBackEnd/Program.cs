@@ -58,6 +58,11 @@ builder.Services.AddDbContext<proyectolabo4Context>(options =>
         options.UseMySql(conn, ServerVersion.AutoDetect(conn));
     }
 });
+//builder.Services.AddDbContext<proyectolabo4Context>(options =>
+//{
+//        var conn = builder.Configuration.GetConnectionString("ProdConnection");
+//        options.UseMySql(conn, ServerVersion.AutoDetect(conn));
+//});
 
 // automapper
 builder.Services.AddAutoMapper(typeof(Mapping));
@@ -88,6 +93,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+//para produccion
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
