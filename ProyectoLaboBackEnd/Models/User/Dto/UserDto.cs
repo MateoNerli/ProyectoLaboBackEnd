@@ -11,6 +11,7 @@ namespace ProyectoLaboBackEnd.Models.User.Dto
         public string? Email { get; set; }
         public string Pfp { get; set; } = null!;
         public string? Phone { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public List<PostsDto>? Posts { get; set; }
     }
